@@ -1,3 +1,5 @@
+e16e883 Task 2.4 – split loops, slide statements, extract getTotalAmount/getTotalVolumeCredits
+9d1731b Task 2.3 – update log
 ca4a301 Task 2.3 – inline frmt and add usd(int cents) formatter
 ba59e6c Task 2.2 – update log
 d381f5e Task 2.2 – extract getVolumeCredits and rename params
