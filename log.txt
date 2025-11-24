@@ -1,3 +1,5 @@
+339cee2 Task 2.1 – extract getAmount, introduce getPlay, inline temps
+c6b7e29 Task 1.2 – snapshot git log
 a9b3edf Task X.Y – update log
 2b4f164 fixed tests for the not-for-credit tasks; parameter ordering and ensuring consistent line endings.
 ff5004e adding shortcut keys for Inline Variable (Re: Piazza question)
