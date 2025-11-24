@@ -14,23 +14,16 @@ public class StatementPrinter {
     }
 
     public String statement() {
-        int totalAmount = 0;
-        int volumeCredits = 0;
         StringBuilder result = new StringBuilder("Statement for " + invoice.getCustomer() + System.lineSeparator());
 
         for (Performance performance : invoice.getPerformances()) {
-            int thisAmount = getAmount(performance);
-            Play play = getPlay(performance);
-
-            volumeCredits += getVolumeCredits(performance);
-
             result.append(String.format("  %s: %s (%s seats)%n",
-                    play.getName(),
+                    getPlay(performance).getName(),
                     usd(getAmount(performance)),
                     performance.getAudience()));
-
-            totalAmount += thisAmount;
         }
+        int totalAmount = getTotalAmount();
+        int volumeCredits = getTotalVolumeCredits();
 
         result.append(String.format("Amount owed is %s%n", usd(totalAmount)));
         result.append(String.format("You earned %s credits%n", volumeCredits));
@@ -75,6 +68,22 @@ public class StatementPrinter {
     private String usd(int cents) {
         return NumberFormat.getCurrencyInstance(Locale.US)
                 .format(cents / (double) Constants.PERCENT_FACTOR);
+    }
+
+    private int getTotalVolumeCredits() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            result += getVolumeCredits(performance);
+        }
+        return result;
+    }
+
+    private int getTotalAmount() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            result += getAmount(performance);
+        }
+        return result;
     }
 
 }
