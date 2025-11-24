@@ -1,5 +1,11 @@
 package theater;
 
+/**
+ * Represents a play with its name and type.
+ *
+ * @null fields in this class are not expected to be null.
+ */
+
 public class Play {
 
     private final String name;

@@ -4,17 +4,35 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Generates formatted statements for invoices.
+ *
+ * @null fields in this class are not expected to be null.
+ */
+
+@SuppressWarnings({"checkstyle:RegexpMultiline", "checkstyle:SuppressWarnings"})
 public class StatementPrinter {
     private final Invoice invoice;
     private final Map<String, Play> plays;
+
+    /**
+     * Creates a new StatementPrinter for the given invoice and plays.
+     *
+     * @param invoice the invoice to print
+     * @param plays   the map of playID to Play objects
+     */
 
     public StatementPrinter(Invoice invoice, Map<String, Play> plays) {
         this.invoice = invoice;
         this.plays = plays;
     }
 
+    @SuppressWarnings(
+            {"checkstyle:MissingJavadocMethod",
+                    "checkstyle:FinalLocalVariable", "checkstyle:SuppressWarnings", "checkstyle:Indentation"})
     public String statement() {
-        StringBuilder result = new StringBuilder("Statement for " + invoice.getCustomer() + System.lineSeparator());
+        final StringBuilder result =
+                new StringBuilder("Statement for " + invoice.getCustomer() + System.lineSeparator());
 
         for (Performance performance : invoice.getPerformances()) {
             result.append(String.format("  %s: %s (%s seats)%n",
@@ -22,7 +40,7 @@ public class StatementPrinter {
                     usd(getAmount(performance)),
                     performance.getAudience()));
         }
-        int totalAmount = getTotalAmount();
+        final int totalAmount = getTotalAmount();
         int volumeCredits = getTotalVolumeCredits();
 
         result.append(String.format("Amount owed is %s%n", usd(totalAmount)));
@@ -34,6 +52,7 @@ public class StatementPrinter {
         return plays.get(performance.getPlayID());
     }
 
+    @SuppressWarnings({"checkstyle:FinalLocalVariable", "checkstyle:SuppressWarnings"})
     private int getAmount(Performance performance) {
         Play play = getPlay(performance);
         int result;
@@ -41,13 +60,16 @@ public class StatementPrinter {
             case "tragedy":
                 result = Constants.TRAGEDY_BASE_AMOUNT;
                 if (performance.getAudience() > Constants.TRAGEDY_AUDIENCE_THRESHOLD) {
-                    result += Constants.TRAGEDY_OVER_BASE_CAPACITY_PER_PERSON * (performance.getAudience() - Constants.TRAGEDY_AUDIENCE_THRESHOLD);
+                    result += Constants.TRAGEDY_OVER_BASE_CAPACITY_PER_PERSON * (performance.getAudience()
+                            - Constants.TRAGEDY_AUDIENCE_THRESHOLD);
                 }
                 break;
             case "comedy":
                 result = Constants.COMEDY_BASE_AMOUNT;
                 if (performance.getAudience() > Constants.COMEDY_AUDIENCE_THRESHOLD) {
-                    result += Constants.COMEDY_OVER_BASE_CAPACITY_AMOUNT + Constants.COMEDY_OVER_BASE_CAPACITY_PER_PERSON * (performance.getAudience() - Constants.COMEDY_AUDIENCE_THRESHOLD);
+                    result += Constants.COMEDY_OVER_BASE_CAPACITY_AMOUNT
+                            + Constants.COMEDY_OVER_BASE_CAPACITY_PER_PERSON * (performance.getAudience()
+                            - Constants.COMEDY_AUDIENCE_THRESHOLD);
                 }
                 result += Constants.COMEDY_AMOUNT_PER_AUDIENCE * performance.getAudience();
                 break;
