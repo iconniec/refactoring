@@ -1,3 +1,5 @@
+30dc79e Task 1.1 – add summary Javadoc sentences for all classes
+59f8d58 Task 2.4 – update log
 e16e883 Task 2.4 – split loops, slide statements, extract getTotalAmount/getTotalVolumeCredits
 9d1731b Task 2.3 – update log
 ca4a301 Task 2.3 – inline frmt and add usd(int cents) formatter
